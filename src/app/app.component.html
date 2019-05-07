@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!-- <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
@@ -16,6 +16,50 @@
   <li>
     <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
   </li>
-</ul>
+</ul> -->
 
-<router-outlet></router-outlet>
+<!-- <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+
+<!-- <body class="mat-typography"> -->
+
+  <form>
+    <h2>Search</h2>
+
+    <div>
+
+      <mat-form-field>
+        <mat-label>What</mat-label>
+        <mat-select [(value)]="selectedSearchType" [compareWith]="compareItems">
+          <mat-option *ngFor="let type of searchTypes" [value]="type.value">
+            {{type.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>How</mat-label>
+        <mat-select [(value)]="selectedMatchType" [compareWith]="compareItems">
+          <mat-option *ngFor="let match of matchTypes" [value]="match.value">
+            {{match.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Criteria" value="10177">
+      </mat-form-field>
+    </div>
+    
+    <button mat-flat-button color="primary">Search</button>
+  
+  </form>
+
+  
+
+  <router-outlet></router-outlet>
+  
+<!-- </body> -->
