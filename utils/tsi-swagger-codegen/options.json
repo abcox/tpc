@@ -1,4 +1,5 @@
 {
     "npmName": "@vorba/tsi",
-    "snapshot": "true"
+    "snapshot": "true",
+    "modelPropertyNaming": "PascalCase"
 }

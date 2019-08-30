@@ -6,6 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+To work-around CORS, open cmd.exe session and run:  "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-agent="Android" --user-data-dir="C:/temp-chrome-eng"
+
+See SO article "Disable same origin policy in Chrome" at https://stackoverflow.com/a/19317888/2250792
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.

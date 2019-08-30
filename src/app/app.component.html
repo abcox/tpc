@@ -26,11 +26,9 @@
 
 <!-- <body class="mat-typography"> -->
 
-  <form>
+  <mat-card>    
     <h2>Search</h2>
-
     <div>
-
       <mat-form-field>
         <mat-label>What</mat-label>
         <mat-select [(value)]="selectedSearchType" [compareWith]="compareItems">
@@ -50,13 +48,60 @@
       </mat-form-field>
     
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Criteria" value="10177">
+        <input matInput placeholder="Number" [(ngModel)]="serviceOrder.originalServiceOrderNumber">
       </mat-form-field>
     </div>
     
-    <button mat-flat-button color="primary">Search</button>
+    <button mat-flat-button color="primary" (click)="searchServiceOrders()">Search</button>
+  </mat-card>
+
+  <!-- <form> -->
+  <mat-card>
+    <h2>Create Service Order Parts Used</h2>
+    <div>    
+      <!-- <mat-form-field>
+        <mat-label>How</mat-label>
+        <mat-select [(value)]="selectedMatchType" [compareWith]="compareItems">
+          <mat-option *ngFor="let match of matchTypes" [value]="match.value">
+            {{match.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Number" [(ngModel)]="serviceOrder.originalServiceOrderNumber">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Description" [(ngModel)]="serviceOrder.itemDescription">
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-label>Description</mat-label>
+        <mat-select [(value)]="selectedSearchType" [compareWith]="compareItems">
+          <mat-option *ngFor="let type of searchTypes" [value]="type.value">
+            {{type.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+    </div>
+    
+    <button mat-flat-button color="primary" (click)="serviceOrdersCreateServiceOrderPartsUsed()">Add</button>
+</mat-card>
+
+<table mat-table [dataSource]="tableDataSource"><!--  *ngIf="!(state$ | async)?.isLoading" -->
+  <ng-container matColumnDef="number">
+    <th mat-header-cell *matHeaderCellDef> Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.PartsUsedNumber}} </td>
+    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.ItemDescription}} </td>
+    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="tableColumnsDisplayed"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumnsDisplayed;"></tr>
+</table>
   
-  </form>
+  <!-- </form> -->
 
   
 
