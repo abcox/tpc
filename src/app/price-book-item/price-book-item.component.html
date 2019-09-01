@@ -1,0 +1,33 @@
+<p>
+  Create Price Book Item
+</p>
+
+
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Description" [(ngModel)]="priceBookItem.ItemDescription">
+</mat-form-field>
+<!-- <mat-form-field class="example-full-width">
+  <input matInput placeholder="Status" [(ngModel)]="priceBookItem.Status">
+</mat-form-field> -->
+<mat-form-field>
+  <mat-label>Status</mat-label>
+  <mat-select [(value)]="priceBookItem.Status">
+    <mat-option *ngFor="let status of statuses" [value]="status.id">
+      {{status.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<!-- <mat-form-field class="example-full-width">
+  <input matInput placeholder="Type" [(ngModel)]="priceBookItem.Type">
+</mat-form-field> -->
+<mat-form-field>
+  <mat-label>Type</mat-label>
+  <mat-select [(value)]="priceBookItem.Type">
+    <mat-option *ngFor="let type of types" [value]="type.id">
+      {{type.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-flat-button color="primary" (click)="submit()">Submit</button>
+

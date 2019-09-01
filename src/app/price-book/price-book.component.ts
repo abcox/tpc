@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class PriceBookComponent implements OnInit {
 
   tableDataSource = new MatTableDataSource<TsiWebPriceBookItemSummary>();
-  tableColumnsDisplayed: string[] = ['number','description'];
+  tableColumnsDisplayed: string[] = ['number','description','type','status'];
 
   priceBook = { itemDescription: "" };
 
