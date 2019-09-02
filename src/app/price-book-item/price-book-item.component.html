@@ -6,9 +6,6 @@
 <mat-form-field class="example-full-width">
   <input matInput placeholder="Description" [(ngModel)]="priceBookItem.ItemDescription">
 </mat-form-field>
-<!-- <mat-form-field class="example-full-width">
-  <input matInput placeholder="Status" [(ngModel)]="priceBookItem.Status">
-</mat-form-field> -->
 <mat-form-field>
   <mat-label>Status</mat-label>
   <mat-select [(value)]="priceBookItem.Status">
@@ -17,9 +14,6 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-<!-- <mat-form-field class="example-full-width">
-  <input matInput placeholder="Type" [(ngModel)]="priceBookItem.Type">
-</mat-form-field> -->
 <mat-form-field>
   <mat-label>Type</mat-label>
   <mat-select [(value)]="priceBookItem.Type">
@@ -28,6 +22,66 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Manufacturer List Price" [(ngModel)]="priceBookItem.ManufacturerListPrice">
+</mat-form-field>
 
-<button mat-flat-button color="primary" (click)="submit()">Submit</button>
+<!-- 
+  
+    PartNumber?: string;
+    ItemDescription: string;
+    Type?: string;
+    Status: string;
+    DateCreated?: Date;
+    LastEditDate?: Date;
+    LastSoldDate?: Date;
+    ManufacturerListPrice?: number;
+    Description2?: string;
+    Description3?: string;
+    ItemCategory?: string;
+    ItemSubCategory?: string;
+    Comments: string;
+    ItemCanBeDiscounted?: boolean;
+    Features?: string;
+    ManufacturerName?: string;
+    ManufacturerPartNumber?: string;
+    UnitOfMeasure?: string;
+    Weight?: string;
+    UPC?: string;
+    WarrantyDays?: string;
+    IVRPartNumber?: number;
+    LaborHoursRequired?: number;
+    Bin?: string;
+    ItemURL?: string;
+    PictureFile?: string;
+    Serialized?: boolean;
+    Inactive?: boolean;
+    HotItem?: boolean;
+    Taxable?: boolean;
+    SubjectToSingleItemTax?: boolean;
+    SubjectToProviderTax?: boolean;
+    GSTExempt?: boolean;
+    UseAssemblyGLCodes?: boolean;
+    PrintOnInvoice?: boolean;
+    PrintOnQuote?: boolean;
+    AddToCustomerInventory?: boolean;
+    AddOnlyAssemblyDetailtoCustomerInventory?: boolean;
+    ReceivingGLCode?: string;
+    MaintenancePrice?: number;
+    MaintenancePercentage?: number;
+    BaseCost?: number;
+    RepairCost?: number;
+    AverageCost?: number;
+    ExchangeValue?: number;
+    AccountingLinkSalesCode?: string;
+    DiscountTier?: number;
+    ApplyQuantityDiscountsToAssemblyDetail?: boolean;
+    AssemblyType?: string;
+    PrimaryVendorAccountNumber?: number;
+    ProviderTaxTypeNumber?: number;
+    DefaultProjectPhaseNumber?: number;
+
+ -->
+
+<button mat-flat-button color="primary" (click)="submit()">Create</button>
 
