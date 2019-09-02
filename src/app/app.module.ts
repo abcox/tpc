@@ -11,12 +11,14 @@ import { ApiModule, Configuration } from '@vorba/tsi';
 import { FormsModule } from '@angular/forms';
 import { PriceBookComponent } from './price-book/price-book.component';
 import { PriceBookItemComponent } from './price-book-item/price-book-item.component';
+import { ServiceOrderComponent } from './service-order/service-order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PriceBookComponent,
-    PriceBookItemComponent
+    PriceBookItemComponent,
+    ServiceOrderComponent
   ],
   imports: [
     ApiModule,

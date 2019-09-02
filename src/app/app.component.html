@@ -1,23 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul> -->
-
 <!-- <mat-form-field>
   <input matInput [matDatepicker]="picker" placeholder="Choose a date">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -26,85 +6,30 @@
 
 <!-- <body class="mat-typography"> -->
 
-  <mat-card>    
-    <h2>Search</h2>
-    <div>
-      <mat-form-field>
-        <mat-label>What</mat-label>
-        <mat-select [(value)]="selectedSearchType" [compareWith]="compareItems">
-          <mat-option *ngFor="let type of searchTypes" [value]="type.value">
-            {{type.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-      <mat-form-field>
-        <mat-label>How</mat-label>
-        <mat-select [(value)]="selectedMatchType" [compareWith]="compareItems">
-          <mat-option *ngFor="let match of matchTypes" [value]="match.value">
-            {{match.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Number" [(ngModel)]="serviceOrder.originalServiceOrderNumber">
-      </mat-form-field>
-    </div>
-    
-    <button mat-flat-button color="primary" (click)="searchServiceOrders()">Search</button>
-  </mat-card>
-
-  <!-- <form> -->
-  <mat-card>
-    <h2>Create Service Order Parts Used</h2>
-    <div>    
-      <!-- <mat-form-field>
-        <mat-label>How</mat-label>
-        <mat-select [(value)]="selectedMatchType" [compareWith]="compareItems">
-          <mat-option *ngFor="let match of matchTypes" [value]="match.value">
-            {{match.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Number" [(ngModel)]="serviceOrder.originalServiceOrderNumber">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Description" [(ngModel)]="serviceOrder.itemDescription">
-      </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-label>Description</mat-label>
-        <mat-select [(value)]="selectedSearchType" [compareWith]="compareItems">
-          <mat-option *ngFor="let type of searchTypes" [value]="type.value">
-            {{type.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-    </div>
-    
-    <button mat-flat-button color="primary" (click)="serviceOrdersCreateServiceOrderPartsUsed()">Add</button>
-</mat-card>
-
-<table mat-table [dataSource]="tableDataSource"><!--  *ngIf="!(state$ | async)?.isLoading" -->
-  <ng-container matColumnDef="number">
-    <th mat-header-cell *matHeaderCellDef> Number </th>
-    <td mat-cell *matCellDef="let element"> {{element.PartsUsedNumber}} </td>
-    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
-  </ng-container>
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let element"> {{element.ItemDescription}} </td>
-    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="tableColumnsDisplayed"></tr>
-  <tr mat-row *matRowDef="let row; columns: tableColumnsDisplayed;"></tr>
-</table>
+  <div class="section">
+    <!-- todo.. https://angular.io/api/router/RouterLinkActive -->
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/price-book">Price Book</button><!-- *ngIf="(authState$ | async)?.isAuthenticated" -->
+    <button mat-button routerLink="/service-orders">Service Orders</button><!-- *ngIf="(authState$ | async)?.isAuthenticated" -->
+    <!-- <button
+      *ngIf="(authState$ | async)?.isAuthenticated && isBatch()"
+      [matMenuTriggerFor]="reportMenu"
+      mat-button>
+      Reports
+    </button>
+    <button mat-button routerLink="/help">Help</button>
+    <span class="fill-space"></span>
+    <button mat-button routerLink="/login" *ngIf="!(authState$ | async)?.isAuthenticated" layout-align="end">Login</button>
+    <button mat-button (click)="logOut()" *ngIf="(authState$ | async)?.isAuthenticated">Logoff</button>
+    <button
+      mat-button routerLink="/user-profile"
+      *ngIf="(authState$ | async)?.isAuthenticated">
+      {{(authState$ | async)?.user?.displayName}}
+    </button> -->
+  </div>
   
-  <!-- </form> -->
-
-  
-
+<div class="container">
   <router-outlet></router-outlet>
-  
+</div>
+
 <!-- </body> -->
