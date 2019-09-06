@@ -6,7 +6,7 @@ import { ServiceOrderComponent } from './service-order/service-order.component';
 
 const routes: Routes = [
   { path: 'price-book', component: PriceBookComponent },
-  { path: 'price-book-item', component: PriceBookItemComponent },
+  { path: 'price-book-item/:itemId', component: PriceBookItemComponent },
   { path: 'service-orders', component: ServiceOrderComponent },
   { path: '',   redirectTo: '/', pathMatch: 'full' },
 ];

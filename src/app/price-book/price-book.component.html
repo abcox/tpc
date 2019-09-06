@@ -8,7 +8,7 @@
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="searchByItemDescription()">Search</button>
     <button class="create"
-      [routerLink]="['/price-book-item']"
+      [routerLink]="['/price-book-item', '']"
       color="primary"
       mat-flat-button>
       Create
@@ -18,7 +18,7 @@
 <table mat-table [dataSource]="tableDataSource"><!--  *ngIf="!(state$ | async)?.isLoading" -->
   <ng-container matColumnDef="number">
     <th mat-header-cell *matHeaderCellDef> Number </th>
-    <td mat-cell *matCellDef="let element"> {{element.PriceBookItemNumber}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.ItemId}} </td>
     <!-- <td mat-footer-cell *matFooterCellDef></td> -->
   </ng-container>
   <ng-container matColumnDef="description">
@@ -43,7 +43,11 @@
   </ng-container>
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let element"><mat-icon>delete</mat-icon></td>
+    <td mat-cell *matCellDef="let element">
+      <a [routerLink]="['/price-book-item', element.ItemId]">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </td>
     <!-- <td mat-footer-cell *matFooterCellDef></td> -->
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="tableColumnsDisplayed"></tr>

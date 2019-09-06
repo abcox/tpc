@@ -4,7 +4,9 @@ import {
   PriceBookService,
   TsiWebPriceBookItemSummary,
   TsiWebAdvancedSearchRequest,
-  TsiWebSearchCriteria
+  TsiWebSearchCriteria,
+  TsiWebPriceBookItemResponse,
+  TsiWebSearchPriceBookResponse
 } from '@vorba/tsi';
 import { MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
@@ -64,7 +66,7 @@ export class PriceBookComponent implements OnInit {
         /* pageSize,
         pageStart, */
       )
-      .subscribe(resp => {
+      .subscribe((resp: TsiWebSearchPriceBookResponse) => {
         console.log('resp: ', JSON.stringify(resp));
         //console.log('partsUsed: ', JSON.stringify(resp.PartsUsed[0]));
         //let data = [{ itemDescription: "fun" }, { itemDescription: "stuff" }];
