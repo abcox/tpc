@@ -14,7 +14,6 @@ import {
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import {
-  QuoteApiModule,
   TblPriceBookMainsService,
   TblPriceBookMain,
   Configuration as QuoteServiceConfig
