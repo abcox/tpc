@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Configuration,
-  PriceBookService,
   TsiWebPriceBookItemSummary,
-  TsiWebAdvancedSearchRequest,
-  TsiWebSearchCriteria,
-  TsiWebPriceBookItemResponse,
-  TsiWebSearchPriceBookResponse
 } from '@vorba/tsi';
 import { MatTableDataSource } from '@angular/material';
-import { environment } from 'src/environments/environment';
 import { DataService } from 'src/services/data.service';
 
 @Component({
