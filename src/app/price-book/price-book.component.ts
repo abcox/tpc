@@ -10,6 +10,7 @@ import {
 } from '@vorba/tsi';
 import { MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
+import { DataService } from 'src/services/data.service';
 
 @Component({
   selector: 'app-price-book',
@@ -27,15 +28,8 @@ export class PriceBookComponent implements OnInit {
   priceBook = { itemDescription: "" };
 
   constructor(
-    private priceBookService: PriceBookService,
+    private dataService: DataService,
     ) {
-    let config = new Configuration();
-      config.apiKeys = {
-        private: environment.apiKey_private,
-        public: environment.apiKey_public,
-      }
-      config.basePath = "https://api2.tigerpawsoftware.com";
-      priceBookService.configuration = config;
     }
 
   ngOnInit() {
@@ -47,30 +41,18 @@ export class PriceBookComponent implements OnInit {
     let pageSize: number = 10;
     let pageStart: number = 1;
 
-    let request = <TsiWebAdvancedSearchRequest>{
-      Criteria: [
-        <TsiWebSearchCriteria>{
-          SearchType: "ItemDescription",
-          MatchType: "Contains",
-          Criteria: this.priceBook.itemDescription,
-         /*  CategoryName: "",
-          CustomFieldName: "", */
-        }
-      ]
-    }
-
-    this.priceBookService
+    this.dataService
       //.priceBookSearchByItemDescription(
-      .priceBookAdvancedSearch(
-        request,
+      .priceBookGetItemsByDescription(
+        this.priceBook.itemDescription,
         /* pageSize,
         pageStart, */
       )
-      .subscribe((resp: TsiWebSearchPriceBookResponse) => {
-        console.log('resp: ', JSON.stringify(resp));
+      .subscribe((items: TsiWebPriceBookItemSummary[]) => {
+        console.log('resp: ', JSON.stringify(items));
         //console.log('partsUsed: ', JSON.stringify(resp.PartsUsed[0]));
         //let data = [{ itemDescription: "fun" }, { itemDescription: "stuff" }];
-        this.tableDataSource = new MatTableDataSource<TsiWebPriceBookItemSummary>(resp.PriceBookItems);
+        this.tableDataSource = new MatTableDataSource<TsiWebPriceBookItemSummary>(items);
       });
   }
 
