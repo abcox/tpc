@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map, switchMap, delay } from 'rxjs/operators';
+import { catchError, map, switchMap, delay, tap } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { environment } from 'src/environments/environment';
 import {
@@ -12,7 +12,8 @@ import {
   TsiWebPriceBookItemResponse,
   TsiWebSearchPriceBookResponse,
   TsiWebCreatePriceBookItemModel,
-  TsiWebPriceBookItem
+  TsiWebPriceBookItem,
+  TsiWebUpdatePriceBookItemModel
 } from '@vorba/tsi';
 import {
   TblPriceBookMainsService,
@@ -45,9 +46,8 @@ export class DataService {
       config.basePath = "http://localhost:65049"; //todo: figure out how to get this effective at the service (right now is hard-coded)
       quotingPriceBookService.configuration = quoteConfig;
     }
-
   
-  priceBookSearchByItemId(
+  priceBookGetItemById(
     id:string
     ) {
     
@@ -65,12 +65,12 @@ export class DataService {
           }
         ]
       }
-    );
+    ).pipe(map(resp => resp.PriceBookItems[0]));
   }
 
   priceBookGetItemsByDescription(
     description:string
-    ) {
+    ): Observable<TsiWebPriceBookItemSummary[]> {
     return this.priceBookAdvancedSearch(
       <TsiWebAdvancedSearchRequest> {
         Criteria: [
@@ -81,12 +81,12 @@ export class DataService {
           }
         ]
       }
-    ).pipe(map(resp => <TsiWebPriceBookItemSummary[]>resp.Summary));
+    ).pipe(map(resp => resp.PriceBookItems));
   }
   
   priceBookAdvancedSearch(
     request:TsiWebAdvancedSearchRequest
-    ): Observable<TsiWebPriceBookItemResponse> {
+    ): Observable<TsiWebSearchPriceBookResponse> {
 
     return this.priceBookService
       //.priceBookSearchByItemDescription(
@@ -102,26 +102,46 @@ export class DataService {
   }
 
   priceBookCreatePriceBookItem(
-    item:TsiWebPriceBookItem
-    ) {
+    summary:TsiWebPriceBookItemSummary
+    ): Observable<TsiWebPriceBookItemSummary> {
     let createPriceBookItemModel = <TsiWebCreatePriceBookItemModel>{
       ItemId: Guid.create().toString(),
-      Item: item,
+      Item: summary.Item,
     };
     //console.log("item: ", JSON.stringify(this.priceBookItem));
     return this.priceBookService
       .priceBookCreatePriceBookItem(
         createPriceBookItemModel,
-      );
+      ).pipe(
+        tap(resp => { this.quotePriceBookCreate(resp.Summary); }),
+        map(resp => resp.Summary),
+        );
   }
   
-  quotePriceBookCreate(newItemSummary: TsiWebPriceBookItemSummary) {
+  quotePriceBookCreate(itemSummary: TsiWebPriceBookItemSummary) {
     this.quotingPriceBookService.apiTblPriceBookMainsPost(<TblPriceBookMain>{
-      altPartNumber: newItemSummary.ItemId,
-      description: newItemSummary.Item.ItemDescription,
+      altPartNumber: itemSummary.ItemId,
+      description: itemSummary.Item.ItemDescription,
     }).subscribe(resp => {
       console.log('apiTblPriceBookMainsPost response: ', JSON.stringify(resp));
     });
+  }
+
+  priceBookUpdatePriceBookItem(
+    summary: TsiWebPriceBookItemSummary,
+    recalcalculateClosedAssemblyCost:boolean = false
+    ): Observable<TsiWebPriceBookItemSummary> {
+    let model = <TsiWebUpdatePriceBookItemModel>{
+      ItemId: summary.ItemId,
+      Item: summary.Item,
+    };
+    //console.log("item: ", JSON.stringify(this.priceBookItem));
+    return this.priceBookService
+      .priceBookUpdatePriceBookItem(
+        summary.PriceBookItemNumber,
+        model,
+        recalcalculateClosedAssemblyCost
+      ).pipe(map(resp => resp.Summary));
   }
 
 

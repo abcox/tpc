@@ -4,11 +4,11 @@
     New Price Book Item
   </h1>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Description" [(ngModel)]="priceBookItem.ItemDescription">
+    <input matInput placeholder="Description" [(ngModel)]="priceBookItemSummary.Item.ItemDescription">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Status</mat-label>
-    <mat-select [(value)]="priceBookItem.Status">
+    <mat-select [(value)]="priceBookItemSummary.Item.Status">
       <mat-option *ngFor="let status of statuses" [value]="status.id">
         {{status.name}}
       </mat-option>
@@ -16,14 +16,22 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Type</mat-label>
-    <mat-select [(value)]="priceBookItem.Type">
+    <mat-select [(value)]="priceBookItemSummary.Item.Type">
       <mat-option *ngFor="let type of types" [value]="type.id">
         {{type.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select [(value)]="priceBookItemSummary.Item.Category">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Manufacturer List Price" [(ngModel)]="priceBookItem.ManufacturerListPrice">
+    <input matInput placeholder="Manufacturer List Price" [(ngModel)]="priceBookItemSummary.Item.ManufacturerListPrice">
   </mat-form-field>
   <button mat-flat-button color="primary" (click)="create()">Create</button>
 </div>
@@ -32,11 +40,11 @@
     Update Price Book Item
   </h1>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Description" [(ngModel)]="priceBookItem.ItemDescription">
+    <input matInput placeholder="Description" [(ngModel)]="priceBookItemSummary.Item.ItemDescription">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Status</mat-label>
-    <mat-select [(value)]="priceBookItem.Status">
+    <mat-select [(value)]="priceBookItemSummary.Item.Status">
       <mat-option *ngFor="let status of statuses" [value]="status.id">
         {{status.name}}
       </mat-option>
@@ -44,14 +52,22 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Type</mat-label>
-    <mat-select [(value)]="priceBookItem.Type">
+    <mat-select [(value)]="priceBookItemSummary.Item.Type">
       <mat-option *ngFor="let type of types" [value]="type.id">
         {{type.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select [(value)]="priceBookItemSummary.Item.ItemCategory">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Manufacturer List Price" [(ngModel)]="priceBookItem.ManufacturerListPrice">
+    <input matInput placeholder="Manufacturer List Price" [(ngModel)]="priceBookItemSummary.Item.ManufacturerListPrice">
   </mat-form-field>
   <button mat-flat-button color="primary" (click)="update()">Update</button>
 </div>

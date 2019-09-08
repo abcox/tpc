@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { PriceBookComponent } from './price-book/price-book.component';
 import { PriceBookItemComponent } from './price-book-item/price-book-item.component';
 import { ServiceOrderComponent } from './service-order/service-order.component';
+import { DomainValuesComponent } from './domain-values.omponent';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ServiceOrderComponent } from './service-order/service-order.component';
   ],
   providers: [
     //Configuration,
+    DomainValuesComponent
   ],
   bootstrap: [
     AppComponent,

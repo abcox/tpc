@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  TsiWebPriceBookItemSummary,
-} from '@vorba/tsi';
 import { MatTableDataSource } from '@angular/material';
 import { DataService } from 'src/services/data.service';
 
@@ -12,10 +9,11 @@ import { DataService } from 'src/services/data.service';
 })
 export class PriceBookComponent implements OnInit {
 
-  tableDataSource = new MatTableDataSource<TsiWebPriceBookItemSummary>();
+  tableDataSource = new MatTableDataSource<any>();
   tableColumnsDisplayed: string[] = [
-    'number','description','type','status','manufacturerListPrice',
-    'action',
+    //'number',
+    'description','type','status','category','manufacturerListPrice',
+    'edit','delete',
   ];
 
   priceBook = { itemDescription: "" };
@@ -41,11 +39,10 @@ export class PriceBookComponent implements OnInit {
         /* pageSize,
         pageStart, */
       )
-      .subscribe((items: TsiWebPriceBookItemSummary[]) => {
-        console.log('resp: ', JSON.stringify(items));
-        //console.log('partsUsed: ', JSON.stringify(resp.PartsUsed[0]));
-        //let data = [{ itemDescription: "fun" }, { itemDescription: "stuff" }];
-        this.tableDataSource = new MatTableDataSource<TsiWebPriceBookItemSummary>(items);
+      //.subscribe((items: TsiWebPriceBookItemSummary[]) => {
+      .subscribe((items) => {
+        //console.log('items: ', JSON.stringify(items));
+        this.tableDataSource = new MatTableDataSource(items);
       });
   }
 

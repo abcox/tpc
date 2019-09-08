@@ -1,11 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import {
   TsiWebPriceBookItem,
-  TsiWebSearchPriceBookResponse,
-  TsiWebPriceBookItemSummary
+  TsiWebPriceBookItemSummary,
 } from '@vorba/tsi';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/services/data.service';
+import { DomainValuesComponent } from '../domain-values.omponent';
+
+
+const emptyPriceBookItem = (): TsiWebPriceBookItem => ({
+  Comments: '',
+  ItemDescription: '',
+  Status: '',
+});
+
+const createNewPriceBookItem = <T extends Partial<TsiWebPriceBookItem>>(initialValues: T): TsiWebPriceBookItem & T => {
+  return Object.assign(emptyPriceBookItem(), initialValues);
+};
 
 @Component({
   selector: 'app-price-book-item',
@@ -15,24 +26,32 @@ import { DataService } from 'src/services/data.service';
 export class PriceBookItemComponent implements OnInit {
 
   types = [
-    {id:"Labour",name:"Labour"},
-    {id:"Material",name:"Material"},
-    {id:"Special",name:"Special"},
-  ]
+    { id:"Labour",name:"Labour" },
+    { id:"Material",name:"Material" },
+    { id:"Special",name:"Special" },
+  ];
 
   statuses = [
-    {id:"Active",name:"Active"},
-    {id:"Inactive",name:"Inactive"},
-    {id:"Recalled",name:"Recalled"},
-  ]
+    { id:"Active",name:"Active" },
+    { id:"Inactive",name:"Inactive" },
+    { id:"Recalled",name:"Recalled" },
+  ];
 
-  priceBookItem = <TsiWebPriceBookItem>{};
-  priceBookItemSummary = <TsiWebPriceBookItemSummary>{};
+  categories = this.domain.PriceBookItemCategory;
+
+  //priceBookItem = <TsiWebPriceBookItem>{};
+  priceBookItemSummary = <TsiWebPriceBookItemSummary>{ Item: createNewPriceBookItem({}) };
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
+    private router: Router,
+    private domain: DomainValuesComponent
     ) {
+      // override the route reuse strategy
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+          return false;
+      };
     }
 
   itemId = '';
@@ -56,27 +75,33 @@ export class PriceBookItemComponent implements OnInit {
     let pageSize: number = 10;
     let pageStart: number = 1;
 
-    this.dataService.priceBookSearchByItemId(id)
-      .subscribe((resp: TsiWebSearchPriceBookResponse) => {
-        //console.log('resp: ', JSON.stringify(resp));
-        this.priceBookItemSummary = resp.PriceBookItems[0];
-        console.log('resp: ', JSON.stringify(this.priceBookItemSummary));
-        this.priceBookItem = this.priceBookItemSummary.Item;
+    this.dataService.priceBookGetItemById(id)
+      .subscribe(itemSummary => {
+        //console.log('item: ', JSON.stringify(itemSummary));
+        this.priceBookItemSummary = itemSummary;
       });
   }
 
   create() {
     this.dataService
       .priceBookCreatePriceBookItem(
-        this.priceBookItem
+        this.priceBookItemSummary
       )
-      .subscribe(resp => {
-        console.log('resp: ', JSON.stringify(resp));
+      .subscribe(createdItemSummary => {
+        //console.log('resp: ', JSON.stringify(createdItemSummary));
+        this.router.navigate(['/price-book-item', createdItemSummary.ItemId]);
       });
   }
 
   update() {
-
-    // todo..    
+    console.log('priceBookItemSummary: ', JSON.stringify(this.priceBookItemSummary));
+    this.dataService
+      .priceBookUpdatePriceBookItem(
+        this.priceBookItemSummary
+      )
+      .subscribe(updatedItemSummary => {
+        console.log('updatedItemSummary: ', JSON.stringify(updatedItemSummary));
+        this.priceBookItemSummary = updatedItemSummary;
+      }); 
   }
 }
